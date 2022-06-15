@@ -8,7 +8,7 @@ die ()
     exit 99
 } 
 
-./checkpw_wbloom.py --rulelist rules.txt --wordlist ignis-1M.txt --masklist rockyou_masks_10tothe20.masks << EOF
+./checkpw_cli.py --rulelist rules.txt --wordlist ignis-1M.txt --masklist rockyou_masks_10tothe20.masks << EOF
 kd0
 123
 123456789
