@@ -128,23 +128,29 @@ def checkmask_known(password):
             advancedmask_string += "?s"
             score += 1.5
     return advancedmask_string
-        
-def checkmask(password, masklist):
-    mask = checkmask_known(password)
-    i=0
+
+
+masks = {}
+def read_mask_file(masklist):
+    i = 0
     list = open(masklist, 'r')
     for line in list:
-        if(line.rstrip("\n") == mask):
-            if (options.debug):
-                print("line {} == mask {}".format(line.rstrip("\n"), mask))
-            list.close()
-            score = mask2score(i)
-            if score == -1:
-                score = 100
-            return(score)
+        masks[line.rstrip("\n")] = i
         i += 1
     list.close()
+    return masks
+
+
+def checkmask(password):
+    mask = checkmask_known(password)
+    if mask in masks:
+        score = mask2score(masks[mask])
+        if score == -1:
+            score = 100
+        return(score)
     return 100
+
+
 
 
 def checkbrute(password):

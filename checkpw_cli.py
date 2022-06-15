@@ -104,6 +104,15 @@ class rulechecker:
         # pp.pprint(words)
 
 
+masks = {}
+def read_mask_file(masklist):
+    i = 0
+    list = open(masklist, 'r')
+    for line in list:
+        masks[line.rstrip("\n")] = i
+        i += 1
+    list.close()
+    return masks
 
 def mask2score(masknum):
     # score = 0 - (0.000000011 * math.pow(masknum, 2) ) + (0.000449824 * masknum) + 11.148066427
@@ -113,6 +122,15 @@ def mask2score(masknum):
     if ( options.debug ) :
             print( "in mask2score, masknum {}, score {}".format(masknum, score) )
     return round(score)
+
+def checkmask(password):
+    mask = checkmask_known(password)
+    if mask in masks:
+        score = mask2score(masks[mask])
+        if score == -1:
+            score = 100
+        return(score)
+    return 100
 
 
 def checkmask_known(password):
@@ -140,24 +158,6 @@ def checkmask_known(password):
             score += 1.5
     return advancedmask_string
         
-def checkmask(password, masklist):
-    mask = checkmask_known(password)
-    i=0
-    list = open(masklist, 'r')
-    for line in list:
-        # print(line)
-        if(line.rstrip("\n") == mask):
-            if (options.debug):
-                print("line {} == mask {}".format(line.rstrip("\n"), mask))
-            list.close()
-            score = mask2score(i)
-            if score == -1:
-                score = 100
-            return(score)
-        i += 1
-    list.close()
-    return 100
-
 
 def checkbrute(password):
     # logb ( m^k) = k * logb(M)
@@ -234,7 +234,7 @@ def allchecks(password, rules):
         return('brute', brutescore)
 
 
-    maskscore = checkmask(password, options.masklist)
+    maskscore = checkmask(password)
     if (maskscore < 8):
         return('mask', maskscore)
 
@@ -242,7 +242,6 @@ def allchecks(password, rules):
     if (bloomscore < 10):
         return('bloom', bloomscore)
 
-    # print("checking hybrid for {}".format(password))
     hybridscore = checkhybrid(password, rules)
     if (hybridscore < 8):
         return('hybrid', hybridscore)
@@ -300,7 +299,7 @@ if __name__ == "__main__":
     rules = rulechecker(options.rulelist, options.wordlist)
     # bloom = BloomFilter(max_elements=1.5 * (10**8), error_rate=0.0001, filename=('bloom182M.bin', 400000000))
     bloom = BloomFilter( max_elements=(600 * 1000 * 1000), error_rate=0.0001, filename=('bloom554M.bin', (128 * 1024 * 1024) ) )
-
+    masks = read_mask_file(options.masklist)
 
 checkpasswords(rules)
 # cProfile.run('checkpasswords(rules)')
