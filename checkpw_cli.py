@@ -115,7 +115,6 @@ def read_mask_file(masklist):
     return masks
 
 def mask2score(masknum):
-    # score = 0 - (0.000000011 * math.pow(masknum, 2) ) + (0.000449824 * masknum) + 11.148066427
     # This math determined via quadratic regression of the actual number of candidates generated
     score = (0.00067481 * masknum) + 38.69001341 - ( 0.0000000035 * math.pow(masknum, 2))
     score = score * math.log( 2, 10)
