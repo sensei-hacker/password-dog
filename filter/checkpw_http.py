@@ -17,6 +17,8 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse, parse_qs
 import pprint
 import json
+from datetime import datetime
+
 
 class rulechecker:
     def __init__(self, rulelist, dictfile):
@@ -98,8 +100,8 @@ def mask2score(masknum):
     # This math determined via quadratic regression of the actual number of candidates generated
     score = (0.00067481 * masknum) + 38.69001341 - ( 0.0000000035 * math.pow(masknum, 2))
     score = score * math.log( 2, 10)
-    if ( options.debug ) :
-            print( "in mask2score, masknum {}, score {}".format(masknum, score) )
+    if (options.debug) :
+        print( "in mask2score, masknum {}, score {}".format(masknum, score) )
     return round(score)
 
 
@@ -227,7 +229,7 @@ def allchecks(password, rules):
         return('brute', brutescore)
 
 
-    maskscore = checkmask(password, options.masklist)
+    maskscore = checkmask(password)
     if (maskscore < 8):
         return('mask', maskscore)
 
@@ -265,10 +267,17 @@ def checkpasswords(rules):
 
 class PwServer(BaseHTTPRequestHandler):
     def do_GET(self):
-        # TODO: send headers
         args = parse_qs( urlparse(self.path).query )
+        if (options.debug):
+            pprint.pprint(args)
+            date_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            with open("/tmp/pd.log", 'a') as out:
+                out.write(date_time + ' ' + args['newpassword'][0] + '\n')
+                # out.write(date_time + ' ' + args['newpassword'] + '\n')
+
         # pprint.pprint(args)
         # pprint.pprint(args['newpassword'][0])
+
 
         password = args['newpassword'][0]
         (attack, score) = allchecks(password, rules)
