@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+	<style>
+		.suggestion {
+            border: 1px solid transparent;
+            border-color: rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.2) rgba(255, 255, 255,
+            0.2);
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 6px;
+            padding-right: 6px;
+            text-align: center;
+            border-radius: 6px;
+            margin-bottom: 0.8em;
+            cursor: copy;
+            }
+
+        #pwsuggestions {
+            list-style-type: none;
+        }
+        fieldset { display: inline-block; min-width: 20em; }
+        select { margin-top: 1em; overflow: hidden; }
+        #togglePassword { position: relative; left: -1.8em; }
+    </style>
+    <script type="text/javascript" src="genpw.js"></script>
+    <script type="text/javascript" src="clean_30k.js"></script>
+    <link rel="stylesheet" href="genpw.css">
+</head>
+
+<body>
+
+<h2>PasswordDog</h2>
+<div class="break"></div>
+<form method="post">
+Choose your new password:<br />
+<fieldset>
+    <label for="newpassword">
+        New Password:<br />
+        <input id="newpassword" type="password" autocomplete="new-password" required name="newpassword" minlen=8
+        size="26"><i id="togglePassword">👁</i>
+    </label>
+	<br />
+    <label for="newpassword2">
+        Re-enter:<br />
+        <input id="newpassword2" type="password" autocomplete="new-password" required name="newpassword2"
+        minlen=8 size="26">
+    </label>
+    <br />
+    <meter id="strength-meter" min="0" low="8" high="15" optimum="19" max="20"></meter><br />
+    <label for="strength-meter">
+        Password Strength
+    </label>
+    <br />
+
+<br />
+</fieldset>
+
+
+<fieldset>
+    <label for="pwsuggestions">
+        Suggested Passwords:<br />
+        <ul id="pwsuggestions">
+        </ul>
+    </label>
+    <i id="refresh" style="font-size: larger">↻</i>
+</fieldset>
+</form>
+
+
+<script type="text/javascript">
+
+function hide_password() {
+    document.querySelector("#newpassword").setAttribute("type", "password");
+    document.querySelector("#newpassword2").setAttribute("type", "password");
+}
+
+function copy_pw(event) {
+    document.getElementById('newpassword').value = event.target.value;
+    document.getElementById('newpassword2').value = event.target.value;
+	document.querySelector("#newpassword").setAttribute("type", "text");
+    document.querySelector("#newpassword2").setAttribute("type", "text");
+    focus_select(event);
+    meter.value = 24;
+    setTimeout(hide_password, 2000);
+}
+
+
+var focusedElement;
+function focus_select(event) {
+    if (focusedElement == event.target) return;
+    focusedElement = event.target;
+    setTimeout(function () { focusedElement.select(); }, 100);
+}
+
+const togglePassword = document.querySelector("#togglePassword");
+const password = document.querySelector("#newpassword");
+
+togglePassword.addEventListener("click", function () {
+    const type = password.getAttribute("type") === "password" ? "text" : "password";
+    password.setAttribute("type", type);
+    document.querySelector("#newpassword2").setAttribute("type", type);
+});
+
+refresh.addEventListener("click", suggest_passwords);
+</script>
+
+</body>
+
