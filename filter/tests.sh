@@ -24,3 +24,14 @@ EOF
 
 
 
+wget -q -O - 'http://localhost:8080/?newpassword=kd0'
+wget -q -O - 'http://localhost:8080/?newpassword=123'
+wget -q -O - 'http://localhost:8080/?newpassword=123'
+wget -q -O - 'http://localhost:8080/?newpassword=123456789'
+wget -q -O - 'http://localhost:8080/?newpassword=Portable744'
+wget -q -O - 'http://localhost:8080/?newpassword=Portable744'
+wget -q -O - 'http://localhost:8080/?newpassword=123Portable'
+wget -q -O - 'http://localhost:8080/?newpassword=Portable123'
+wget -q -O - 'http://localhost:8080/?newpassword=Portable!'
+wget -q -O - 'http://localhost:8080/?newpassword=portABLE!'
+wget -q -O - 'http://localhost:8080/?newpassword=ab8350'
