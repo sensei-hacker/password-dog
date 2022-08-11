@@ -46,9 +46,9 @@ fieldset {
 
 select, input {
   /* background-color: #303245; */
-  background-color: rgba(255,255,255,0.3);
+  background-color: rgba(128, 128, 128, .2);
   border-radius: 8px;
-  border: 0;
+  border: 1px solid rgba(128, 128, 128, .5);
   box-sizing: border-box;
   color: #eee;
   outline: 0;
@@ -119,5 +119,10 @@ select, input {
 
 .submit:active {
   background-color: #06b;
+}
+
+.suggestion, input[type=text] {
+    width: 18em;
+    border: 1px solid rgba(128, 128, 128, .5);
 }
 
