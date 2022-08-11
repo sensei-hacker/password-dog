@@ -23,6 +23,7 @@ apt install python3-pip
 thisdir=`pwd`
 mkdir -p $BINDIR
 cp -a filter $BINDIR
+wget -O $BINDIR/password-dog/filter/bloom554M.bin https://passworddog.s3.amazonaws.com/bloom554M.bin
 cd $BINDIR/password-dog
 
 python3 -m venv pd_python
