@@ -25,6 +25,7 @@
         #togglePassword { position: relative; left: -1.8em; }
     </style>
     <script type="text/javascript" src="genpw.js"></script>
+    <script type="text/javascript" src="scorepw.js"></script>
     <script type="text/javascript" src="clean_30k.js"></script>
     <link rel="stylesheet" href="genpw.css">
 </head>
@@ -52,7 +53,9 @@ Choose your new password:<br />
     <label for="strength-meter">
         Password Strength
     </label>
-    <br />
+    <p>
+    Bad guys might crack this password in a few <em><span id="timeunit">seconds</span></em>.
+    </p>
 
 <br />
 </fieldset>
@@ -84,6 +87,7 @@ function copy_pw(event) {
     focus_select(event);
     meter.value = 24;
     setTimeout(hide_password, 2000);
+    scoreTime();
 }
 
 
