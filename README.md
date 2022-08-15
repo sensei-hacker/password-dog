@@ -33,7 +33,7 @@ a coin, Password Dog is over 90% accurate at distinguishing
 passwords that will be cracked from those that won't.
 
 More information about this, including testing methodology,
-can be found int he docs/ folder.
+can be found in the docs/ folder.
 
 ## Installation
 
