@@ -7,10 +7,10 @@ Password Dog is an advanced password meter / filter
 that will more *accurately* determine whether a candidate 
 password is likely to be cracked by attackers.
 Password Dog is based on simulating the actual attacks
-that real password crackers use, and seeing how long
+that real password crackers use. It calculates how long
 it would take a real attacker to crack a candidate
 password, and which type of attack they would actually use.
-THis gives much more accurate results.
+This gives much more accurate results.
 
 ## Why is another filter needed?
 
