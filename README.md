@@ -7,7 +7,8 @@ Password Dog is an advanced password meter / filter
 that will more *accurately* determine whether a candidate 
 password is likely to be cracked by attackers.
 It was introduced at [Defcon in 2022](https://www.youtube.com/watch?v=oXfLZ1Z4-gY).
-
+This avoid allowing passwords like Spring2021, or Maga2020!, which are allowed
+by most filters but have led to many breaches.
 
 Password Dog is based on simulating the actual attacks
 that real password crackers use. It calculates how long
