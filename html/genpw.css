@@ -126,3 +126,12 @@ select, input {
     border: 1px solid rgba(128, 128, 128, .5);
 }
 
+/* Prevent Lastpass from screwing up the form */
+img[id^='__lpform_cc-number_icon'], div.css-1obar3y, div[data-lastpass-icon-root=true] {
+    display: none !important;
+
+}
+
+input {
+    background-image: none !important;
+}
