@@ -33,7 +33,7 @@ pip3 install bloom_filter2
 
 
 mkdir -p  /usr/local/lib/systemd/system
-sed "s@BINDIR@$BINDIR@g" password-dog.service > /usr/local/lib/systemd/system/password-dog.service
+sed "s@BINDIR@$BINDIR@g" $BINDIR/filter/password-dog.service > /usr/local/lib/systemd/system/password-dog.service
 systemctl daemon-reload
 systemctl enable password-dog
 systemctl start password-dog
