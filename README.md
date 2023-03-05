@@ -40,7 +40,7 @@ More information about this, including testing methodology,
 can be found in the docs/ folder.
 Or see my Defcon 30 talk on the subject [Defcon 2022: Is Maga2020 a strong password? Do password meters work?](https://www.youtube.com/watch?v=oXfLZ1Z4-gY)
 
-You can also see a [demo of Password Dog](https://www.wellfuckit.com/password-dog/)
+You can also see a [demo of Password Dog](https://www.wellfuckit.com:81/password-dog/)
 ## Installation
 
 Password Dog is developed on Linux, on Ubuntu and CentOS.
