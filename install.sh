@@ -6,6 +6,7 @@ DOCROOT=/var/www/html/password-dog
 CGIBIN=/usr/lib/cgi-bin/password-dog
 
 cp -a cgi-bin $CGIBIN
+chmod 755 cgi-bin/*.cgi
 cp -a html $DOCROOT
 if [ -e /usr/lib/cgi-bin ]
 then
@@ -14,6 +15,7 @@ fi
 
 
 
+cpan LWP::UserAgent
 
 ( yum install python3 || apt install python3 )
 ( yum install enchant || apt install enchant-2 )
