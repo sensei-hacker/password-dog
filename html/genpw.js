@@ -33,7 +33,7 @@ for (var i = 0; i < 100; i++) {
 seperators = [",", ".", "/", "-", "+"];
 function crand_words(wordlist, count) {
     words = [];
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < count; i++) {
         word = wordlist[crand.randbetween(0, wordlist.length - 1)];
         words.push( word.charAt(0).toUpperCase() + word.slice(1) );
     }
