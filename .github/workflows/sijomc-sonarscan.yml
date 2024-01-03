@@ -1,0 +1,23 @@
+on: 
+  workflow_dispatch:
+    inputs:
+      projectVersion:
+        description: 'Version'
+        required: true
+name: Development
+jobs:
+  sonarQubeTrigger:
+    name: SonarQube Trigger
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: SonarQube Scan
+      uses: sijomc/sonarscan-action@master
+      with:
+        host: ${{ secrets.SONARQUBE_HOST }}
+        login: ${{ secrets.SONARQUBE_TOKEN }}
+        scannerOptions: ${{ secrets.SCANNER_OPTIONS }}
+        exclusions: ${{ secrets.SONAR_EXCLUSIONS }}
+        projectKey: "**Develop**"
+        projectName: "**Develop**"
+        projectVersion: ${{ github.event.inputs.projectVersion }}
