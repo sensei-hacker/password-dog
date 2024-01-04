@@ -1,37 +1,20 @@
 name: Build
-
- on:
-
-  push:
-
-    branches:
-
-      - main
-
-  pull_request:
-
-    types: [opened, synchronize, reopened]
-
- 
+on:
+ push:
+   branches:
+     - main
+ pull_request:
+   types: [opened, synchronize, reopened]
 
 jobs:
-
   build:
-
     name: Build
-
     runs-on: ubuntu-latest
-
     permissions: read-all
-
     steps:
-
       - uses: actions/checkout@v2
-
         with:
-
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-
       - uses: sonarsource/sonarqube-scan-action@master
 
         env:
