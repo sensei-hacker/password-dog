@@ -3,7 +3,7 @@ function scoreDigits(password) {
     return;
   }
 
-  var i, years;
+  let i, years;
 
   if ( "01234567890".includes(password) || "09876543210".includes(password) ) {
     return 2;
@@ -12,7 +12,7 @@ function scoreDigits(password) {
   years = set();
   i = 1940;
 
-  while (i < 2030) {
+  while (i < 2050) {
     years.add(i.toString());
     i += 1;
   }
@@ -59,28 +59,24 @@ function scorePassword() {
       scoreLocal();
       return;
   }
-  var xhttp = new XMLHttpRequest();
+  let xhttp = new XMLHttpRequest();
   xhttp.responseType = 'json';
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        // var jsonObj = JSON.parse(this.responseText);
-        var jsonResponse = this.response;
-        // console.log(jsonResponse)
+        let jsonResponse = this.response;
         meter.value = jsonResponse.score
         scoreTime();
     }
   };
-  // xhttp.open("GET", "http://localhost:8080/?newpassword=" + encodeURIComponent(newpassword.value), true);
   xhttp.open("GET", "/cgi-bin/password-dog/password-dog.cgi?newpassword=" + encodeURIComponent(newpassword.value), true);
   xhttp.send();
 }
 
 
-// window.onload = function() {
 window.addEventListener('load', (event) => {
-	meter = document.getElementById('strength-meter');
-	newpassword = document.getElementById('newpassword');
-    newpassword.addEventListener("input", scorePassword);
+	let meter = document.getElementById('strength-meter');
+	let newpassword = document.getElementById('newpassword');
+  newpassword.addEventListener("input", scorePassword);
 });
 
 

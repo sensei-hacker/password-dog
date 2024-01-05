@@ -154,7 +154,7 @@ class RuleGen:
         # Delete M characters, starting at position N
         self.hashcat_rule["O"] = lambda x, y, z: x[:y] + x[y + z:]
         # Extracts M characters, starting at position N
-        self.hashcat_rule["'"] = lambda x, y, z: x[y:y+z]
+        self.hashcat_rule["x"] = lambda x, y, z: x[y:y+z]
         # Purge all instances of X
         self.hashcat_rule["@"] = lambda x, y: x.replace(y, '')
 
@@ -478,7 +478,7 @@ class RuleGen:
         password = preanalysis_password
 
         if self.debug:
-            "[*] Preanalysis Password: %s" % password
+            print("[*] Preanalysis Password: %s" % password)
 
         return self.enchant.suggest(password)
 
@@ -937,7 +937,7 @@ class RuleGen:
         except (KeyboardInterrupt, SystemExit):
             if self.debug:
                 print("[*] Password analysis worker [%d] terminated." % i)
-
+            raise
         if self.debug:
             print("[*] Password analysis worker [%d] stopped." % i)
         # time.sleep(0.01)
@@ -963,7 +963,7 @@ class RuleGen:
         except (KeyboardInterrupt, SystemExit):
             if self.debug:
                 print("[*] Rule worker terminated.")
-
+            raise
         f.close()
         if self.debug:
             print("[*] Rule worker stopped.")
@@ -990,7 +990,7 @@ class RuleGen:
         except (KeyboardInterrupt, SystemExit):
             if self.debug:
                 print("[*] Word worker terminated.")
-
+            raise
         f.close()
         if self.debug:
             print("[*] Word worker stopped.")
@@ -1042,6 +1042,7 @@ class RuleGen:
 
         except (KeyboardInterrupt, SystemExit):
             print("\n[!] Rulegen was interrupted.")
+            raise
 
         else:
             # Signal workers to stop.
@@ -1117,7 +1118,7 @@ class RuleGen:
 
         p = subprocess.Popen(["%s/hashcat-cli64.bin" % HASHCAT_PATH, "-r", "%s/test.rule" % HASHCAT_PATH, "--stdout",
                               "%s/test.word" % HASHCAT_PATH], stdout=subprocess.PIPE)
-        out, err = p.communicate()
+        out, _ = p.communicate()
         out = out.strip()
 
         if out == password:

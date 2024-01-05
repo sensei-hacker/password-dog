@@ -53,7 +53,7 @@ class pwchecker:
             elif char in string.ascii_lowercase:
                 lower += 1
                 advancedmask_string += "?l"
-                score +- 1.4
+                score += 1.4
     
             elif char in string.ascii_uppercase:
                 upper += 1.4
@@ -70,11 +70,11 @@ class pwchecker:
     def read_mask_file(masklist):
         masks = {}
         i = 0
-        list = open(masklist, 'r')
-        for line in list:
+        listfile = open(masklist, 'r')
+        for line in listfile:
             masks[line.rstrip("\n")] = i
             i += 1
-        list.close()
+        listfile.close()
         return masks
     
     
@@ -97,10 +97,10 @@ class pwchecker:
     
     @staticmethod
     def trimpunc(password):
-        # TODO - trim punctuation, mixed with numbers? for hybrid attack
+        # TODO (finish) - trim punctuation, mixed with numbers? for hybrid attack
         leading = re.compile("^(" + re.escape(string.punctuation) + ")(.*)")
         trailing = re.compile("(.*?)(" + re.escape(string.punctuation + ")$"))
-    
+
     @staticmethod
     def checkdigits(password):
         if not password.isdigit():
@@ -119,7 +119,7 @@ class pwchecker:
         return(len(password))
     
     
-    def checkhybrid(self, password, rules):
+    def checkhybrid(self, password):
         score = 0
         base = password
     
@@ -173,7 +173,7 @@ class pwchecker:
         if (bloomscore < 10):
             return('bloom', bloomscore)
     
-        hybridscore = self.checkhybrid(password, self.rules)
+        hybridscore = self.checkhybrid(password)
         if (hybridscore < 8):
             return('hybrid', hybridscore)
     

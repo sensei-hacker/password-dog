@@ -3,8 +3,7 @@ import os
 import math
 
 class rulechecker:
-    def __init__(sellf):
-        return self
+    def __init__(self):
 
     def __init__(self, rulelist, dictfile, debug):
         self.rules = set( line.strip() for line in open(rulelist) )
@@ -24,7 +23,6 @@ class rulechecker:
                 if len(rule) > 0:
                     rules.add(pre + ''.join(rule))
         for rule in rules:
-            # print(rule)
             if rule in self.rules:
                 if (self.debug):
                     print( "found with rule {}".format(rule) )

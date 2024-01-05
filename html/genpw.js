@@ -24,17 +24,12 @@ class CryptoRandom {
 }
 
 const crand = new CryptoRandom();
-/*
-for (var i = 0; i < 100; i++) {
-  console.log(crand.randbetween(0, 3));
-}
-*/
 
-seperators = [",", ".", "/", "-", "+"];
+var seperators = [",", ".", "/", "-", "+"];
 function crand_words(wordlist, count) {
-    words = [];
+    let words = [];
     for (let i = 0; i < count; i++) {
-        word = wordlist[crand.randbetween(0, wordlist.length - 1)];
+        let word = wordlist[crand.randbetween(0, wordlist.length - 1)];
         words.push( word.charAt(0).toUpperCase() + word.slice(1) );
     }
     return words;
@@ -42,25 +37,25 @@ function crand_words(wordlist, count) {
 
 
 function gen_pw(count, wordlist) {
-  var sep, words;
+  let sep, words;
 
   words = crand_words(wordlist, count);
-  randnum = crand.randbetween(0,9999);
-  index = crand.randbetween(0, words.length - 1) ;
+  let randnum = crand.randbetween(0,9999);
+  let index = crand.randbetween(0, words.length - 1) ;
   words.splice(index, 0, randnum);
   sep = seperators[crand.randbetween(0, seperators.length - 1)];
   return words.join(sep);
 }
 
 function suggest_passwords() {
-    suggestions = document.getElementById('pwsuggestions');
+    let suggestions = document.getElementById('pwsuggestions');
     while (suggestions.firstChild) {
         suggestions.removeChild(suggestions.firstChild);
     }
     for (var i = 0; i < 4; i += 1) {
-        suggest = gen_pw(3, wordlist);
-        var li = document.createElement("li");
-        var inputsuggest = document.createElement("input");
+        let suggest = gen_pw(3, wordlist);
+        let li = document.createElement("li");
+        let inputsuggest = document.createElement("input");
         inputsuggest.classList.add("suggestion");
         inputsuggest.setAttribute('size',24);
         inputsuggest.value = suggest;
@@ -74,7 +69,6 @@ function suggest_passwords() {
 window.onload = function() {
 	meter = document.getElementById('strength-meter');
 	newpassword = document.getElementById('newpassword');
-	// newpassword.addEventListener("change", scorePassword);
     newpassword.addEventListener("input", scorePassword);
     suggest_passwords();
 }
