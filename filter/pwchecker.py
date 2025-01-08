@@ -96,12 +96,6 @@ class pwchecker:
         return( round(len(password) * math.log10(95)) )
     
     @staticmethod
-    def trimpunc(password):
-        # TODO (finish) - trim punctuation, mixed with numbers? for hybrid attack
-        leading = re.compile("^(" + re.escape(string.punctuation) + ")(.*)")
-        trailing = re.compile("(.*?)(" + re.escape(string.punctuation + ")$"))
-
-    @staticmethod
     def checkdigits(password):
         if not password.isdigit():
             return(100)
@@ -125,8 +119,17 @@ class pwchecker:
     
         trailingdigits = re.compile('(.+?)(\d+)$')
         leadingdigits = re.compile('^(\d+)(.+)')
-        
-        leading = leadingdigits.search(password)
+
+        # anypunc =  '|'.join(  map( lambda x: '\\' + x, list(string.punctuation) )  )
+        # trailingpunc = re.compile( "(.*?)(" + anypunc  + ")$" )
+        # Ending password with !, ., or ? is worth only 1 point (x10)
+        trailingpunc = re.compile( "(.*?)([!\?\.]*)$" )
+        trailing = trailingpunc.search(base)
+        if (trailing):
+            base = trailing.group(1)
+            score = len( trailing.group(2) )
+
+        leading = leadingdigits.search(base)
         if (leading):
             base = leading.group(2)
             score = self.checkdigits( leading.group(1) )
