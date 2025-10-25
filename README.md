@@ -78,9 +78,6 @@ Also you can pipe a list of candidates to checkpw_cli.py:
 
 Note it takes a minute for the application to start up.
 
-Note the installation script will download a 1.3GB dictionary
-file from Amazon S3.
-
 A sample html file in /var/www/html/password-dog/index.html
 shows how to update a password meter using AJAX with Password Dog.
 
